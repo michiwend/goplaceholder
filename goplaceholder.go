@@ -17,7 +17,7 @@ const (
 	maxTextBoundsToImageRatioY = 0.23
 	maxTextBoundsToImageRatioX = 0.44
 	dpi                        = 72.00
-	testFontSize               = 1.00 // use heigher values (>=100) when hinting enabled
+	testFontSize               = 1.00 // use heigher values (>=1.00) when hinting enabled
 )
 
 func Placeholder(text, ttfPath string, foreground, background color.RGBA, width, height int) (image.Image, error) {
