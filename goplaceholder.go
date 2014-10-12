@@ -20,7 +20,6 @@ const (
 	testFontSize               = 1.00 // use heigher values (>=100) when hinting enabled
 )
 
-// FIXME foreground / background and font params
 func Placeholder(text, ttfPath string, foreground, background color.RGBA, width, height int) (image.Image, error) {
 
 	if width < 0 || height < 0 {
