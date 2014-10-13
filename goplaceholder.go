@@ -89,7 +89,7 @@ func Placeholder(text, ttfPath string, foreground, background color.RGBA, width,
 	// finally draw the centered text
 	drawPoint = freetype.Pt(
 		int(c.PointToFix32(float64(width)/2.0)-textExtent.X/2)>>8,
-		int(c.PointToFix32(float64(height)/2.0+fontsize/2.0))>>8)
+		int(c.PointToFix32(float64(height)/2.0+fontsize/2.6))>>8)
 
 	img := image.NewRGBA(image.Rect(0, 0, width, height))
 	draw.Draw(img, img.Bounds(), bg_img, image.ZP, draw.Src)
