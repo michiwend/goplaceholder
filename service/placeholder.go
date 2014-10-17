@@ -12,7 +12,6 @@ import (
 )
 
 func serveImage(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "image/png")
 
 	params := mux.Vars(r)
 	r.ParseForm()
@@ -22,12 +21,19 @@ func serveImage(w http.ResponseWriter, r *http.Request) {
 	// FIXME err handling
 
 	img, _ := goplaceholder.Placeholder(
+	if width > 4000 || height > 4000 {
+		w.Header().Set("Content-Type", "text/html")
+		w.Write([]byte("image too large"))
+		return
+	}
+
 		text,
 		"/usr/share/fonts/TTF/DejaVuSans-Bold.ttf",
 		color.RGBA{150, 150, 150, 255},
 		color.RGBA{204, 204, 204, 255},
 		int(width), int(height))
 
+	w.Header().Set("Content-Type", "image/png")
 	png.Encode(w, img)
 	log.Printf("served image: w: %d h: %d\n", width, height)
 }
