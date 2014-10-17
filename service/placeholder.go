@@ -35,8 +35,8 @@ func serveImage(w http.ResponseWriter, r *http.Request) {
 func main() {
 
 	rtr := mux.NewRouter()
-	rtr.HandleFunc("/placeholder/{width:[0-9]+}x{height:[0-9]+}.png", serveImage).Methods("GET")
-	rtr.HandleFunc("/placeholder/{width:[0-9]+}.png", serveImage).Methods("GET")
+	rtr.HandleFunc("/{width:[0-9]+}x{height:[0-9]+}.png", serveImage).Methods("GET")
+	rtr.HandleFunc("/{width:[0-9]+}.png", serveImage).Methods("GET")
 
 	http.Handle("/", rtr)
 
