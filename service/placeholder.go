@@ -3,9 +3,10 @@ package main
 import (
 	"image/color"
 	"image/png"
-	"log"
 	"net/http"
 	"strconv"
+
+	log "github.com/Sirupsen/logrus"
 
 	"github.com/gorilla/mux"
 	"github.com/michiwend/goplaceholder"
@@ -34,13 +35,26 @@ func serveImage(w http.ResponseWriter, r *http.Request) {
 		int(width), int(height))
 
 	if err != nil {
-		log.Println(err)
-		return
+		log.Fatal(err)
 	}
 
 	w.Header().Set("Content-Type", "image/png")
 	png.Encode(w, img)
-	log.Printf("served image: w: %d h: %d\n", width, height)
+
+	imgName := params["width"]
+	if w, ok := params["height"]; ok {
+		imgName += "x" + w
+	}
+	imgName += ".png"
+
+	log.WithFields(log.Fields{
+		"width":      width,
+		"height":     height,
+		"foreground": fg,
+		"background": bg,
+		"text":       text,
+	}).Infof("Served placeholder image \"%s\"", imgName)
+
 }
 
 func main() {
@@ -51,7 +65,7 @@ func main() {
 
 	http.Handle("/", rtr)
 
-	log.Println("Listening...")
-	log.Fatal(http.ListenAndServe(":3000", nil))
+	log.Info("Starting placeholder service on port 3000...")
+	log.Fatal(http.ListenAndServe("127.0.0.1:3000", nil))
 
 }
