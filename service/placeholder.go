@@ -64,8 +64,13 @@ func serveImage(w http.ResponseWriter, r *http.Request) {
 	text := r.FormValue("text")
 
 	if width > 4000 || height > 4000 {
-		w.Header().Set("Content-Type", "text/html")
-		w.Write([]byte("image too large"))
+		http.Error(w, "Image too large", http.StatusRequestEntityTooLarge)
+		log.WithFields(log.Fields{
+			"width":  width,
+			"height": height,
+		}).Warn("requested image too large")
+		return
+	}
 
 	foregroundValue := r.FormValue("fg")
 	backgroundValue := r.FormValue("bg")
