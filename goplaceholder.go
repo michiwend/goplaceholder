@@ -46,7 +46,7 @@ const (
 	maxTextBoundsToImageRatioY = 0.23
 	maxTextBoundsToImageRatioX = 0.64
 	dpi                        = 72.00
-	testFontSize               = 1.00 // use heigher values (>=100) when hinting enabled
+	testFontSize               = 1.00 // use heigher values (>=1.00) when hinting enabled
 )
 
 // Placeholder returns a placeholder image with the given text or, if text was
